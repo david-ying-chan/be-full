@@ -1,0 +1,17 @@
+header {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    margin-right: 60px;
+  }
+
+  nav {
+    font-weight: bold;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}

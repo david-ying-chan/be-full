@@ -1,0 +1,14 @@
+.order-card {
+  border: 1px solid #333;
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 450px;
+
+  .row {
+    margin-bottom: 10px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
