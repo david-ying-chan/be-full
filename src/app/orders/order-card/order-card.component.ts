@@ -7,14 +7,11 @@ import { Order } from 'src/app/models/order';
   styleUrls: ['./order-card.component.scss']
 })
 export class OrderCardComponent implements OnInit {
-  @Input() data: Order;
+  @Input()
+  data: Order;
 
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  getLinkByOrderId(id: string): string {
-    return `/orders/${id}`;
   }
 }
