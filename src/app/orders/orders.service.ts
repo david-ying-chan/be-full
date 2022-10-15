@@ -1,16 +1,17 @@
-import { ORDERS } from './../data/orders';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Order } from '../models/order';
-
+import { ORDERS } from './../data/orders';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrdersService {
+  private _isOffline$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  public isOffline$ = this._isOffline$$ as Observable<boolean>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getOrders(): Observable<Order[]> {
     // return this.http.get<{ payload: Order[] }>('/selling-order-contracts').pipe(
@@ -25,6 +26,6 @@ export class OrdersService {
     //   map(res => res.payload)
     // );
 
-    return of(ORDERS.find(order => order.id === id));
+    return of(ORDERS.find((order) => order.id === id));
   }
 }

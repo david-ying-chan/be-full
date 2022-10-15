@@ -1,14 +1,8 @@
-.order-card {
-  border: 1px solid #333;
+
+.offline-hint {
+  text-align: center;
   margin-bottom: 20px;
-  padding: 20px;
-  width: 450px;
-
-  .row {
-    margin-bottom: 10px;
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #fffbe6;
 }

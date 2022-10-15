@@ -19,7 +19,7 @@ export class OrdersContainerComponent implements OnInit {
     this.orders$ = this.ordersService.getOrders();
   }
 
-  getLinkByOrderId(id: string): string {
-    return `/orders/${id}`;
+  get isOffline$() {
+    return this.ordersService.isOffline$;
   }
 }

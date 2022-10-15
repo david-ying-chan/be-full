@@ -1,14 +1,13 @@
 <div>
-  <div *ngFor="let order of orders$ | async" [routerLink]="getLinkByOrderId(order.id)" class="order-card">
-    <div class="row">订单号：<span>{{order.id}}</span></div>
-    <div class="row">
-      <div>餐品列表</div>
-      <ul>
-        <li *ngFor="let dish of order.dishes">
-          {{dish}}
-        </li>
-      </ul>
-    </div>
-    <div class="row">价格：<span>{{order.price}}</span></div>
+  <div class="offline-hint" *ngIf="isOffline$ | async">
+    获取订单详情失败。
+  </div>
+
+  <div *ngFor="let order of orders$ | async">
+    <app-order-card [data]="order"></app-order-card>
+  </div>
+
+  <div *ngIf="(orders$ | async)?.length === 0" class="empty">
+    目前没有订单。
   </div>
 </div>

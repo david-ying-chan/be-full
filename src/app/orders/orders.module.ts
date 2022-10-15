@@ -5,6 +5,7 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { OrderDetailContainerComponent } from './order-detail-container/order-detail-container.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OrdersContainerComponent } from './orders-container/orders-container.component';
+import { OrderCardComponent } from './order-card/order-card.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { OrdersContainerComponent } from './orders-container/orders-container.co
     OrderDetailComponent,
     OrderDetailComponent,
     OrderDetailContainerComponent,
-    OrdersContainerComponent
+    OrdersContainerComponent,
+    OrderCardComponent
   ],
   imports: [
     CommonModule,
