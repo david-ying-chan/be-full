@@ -8,9 +8,7 @@ import { ORDERS } from './../data/orders';
   providedIn: 'root',
 })
 export class OrdersService {
-  private _isOffline$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    true
-  );
+  private _isOffline$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isOffline$ = this._isOffline$$ as Observable<boolean>;
 
   constructor(private http: HttpClient) {}

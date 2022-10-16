@@ -1,13 +1,13 @@
 <div>
-  <div class="offline-hint" *ngIf="isOffline$ | async">
+  <div class="offline-hint" *ngIf="isOffline">
     获取订单详情失败。
   </div>
 
-  <div *ngFor="let order of orders$ | async">
+  <div *ngFor="let order of orders">
     <app-order-card [data]="order"></app-order-card>
   </div>
 
-  <div *ngIf="(orders$ | async)?.length === 0" class="empty">
+  <div *ngIf="orders.length === 0" class="empty">
     目前没有订单。
   </div>
 </div>
