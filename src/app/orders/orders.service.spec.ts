@@ -20,6 +20,7 @@ describe('OrdersService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
+  // Story 1 AC 1 工序 3
   it('should get all orders', () => {
     service.getOrders().subscribe((orders) => {
       expect(orders).toBeTruthy();
@@ -34,6 +35,19 @@ describe('OrdersService', () => {
     });
   });
 
+  // Story 1 AC 2 工序 3
+  it('should get no orders if there are no orders', () => {
+    service.getOrders().subscribe((orders) => {
+      expect(orders).toEqual([]);
+    });
+    const req = httpTestingController.expectOne('/selling-order-contracts');
+    expect(req.request.method).toEqual('GET');
+    req.flush({
+      payload: [],
+    });
+  });
+
+  // Story 1 AC 3 工序 3
   it('should get error if getting orders fails', () => {
     service.getOrders().subscribe({
       next: () => { fail(); },
