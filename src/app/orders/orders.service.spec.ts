@@ -1,12 +1,11 @@
-import { TestBed } from '@angular/core/testing';
-
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { ORDERS } from '../data/orders';
 import { OrdersService } from './orders.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 describe('OrdersService', () => {
   let service: OrdersService;
@@ -50,14 +49,16 @@ describe('OrdersService', () => {
   // Story 1 AC 3 工序 3
   it('should get error if getting orders fails', () => {
     service.getOrders().subscribe({
-      next: () => { fail(); },
+      next: () => {
+        fail();
+      },
       error: (error: HttpErrorResponse) => {
         expect(error).toBeTruthy();
-      }
+      },
     });
     const req = httpTestingController.expectOne('/selling-order-contracts');
     expect(req.request.method).toEqual('GET');
-    req.error(new ErrorEvent('Network error.'))
+    req.error(new ErrorEvent('Network error.'));
   });
 
   it('should get an order by id', () => {

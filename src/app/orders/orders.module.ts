@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { OrderCardComponent } from './order-card/order-card.component';
 import { OrderDetailContainerComponent } from './order-detail-container/order-detail-container.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { OrdersContainerComponent } from './orders-container/orders-container.component';
 import { OrdersRoutingModule } from './orders-routing.module';
+import { OrderListComponent } from './order-list/order-list.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { OrdersRoutingModule } from './orders-routing.module';
     OrderDetailComponent,
     OrderDetailContainerComponent,
     OrdersContainerComponent,
-    OrderCardComponent,
+    OrderListComponent,
   ],
   imports: [CommonModule, OrdersRoutingModule, HttpClientModule],
 })

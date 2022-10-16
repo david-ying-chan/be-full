@@ -9,26 +9,32 @@ import { Observable } from 'rxjs';
   styleUrls: ['./orders-container.component.scss']
 })
 export class OrdersContainerComponent implements OnInit {
-  orders: Order[];
+  orders: Order[] = [];
   isOffline: boolean = false;
 
   constructor(
     private ordersService: OrdersService
   ) { }
 
+
+
   ngOnInit(): void {
+    this.getOrders();
+  }
+
+  getOrders() {
     this.ordersService.getOrders().subscribe({
       next: (orders: Order[]) => {
+        console.log('orders:', orders);
+
         this.orders = orders;
         this.isOffline = false;
       },
-      error: () => {
+      error: (err) => {
+        console.log('error:', err);
+
         this.isOffline = true;
       }
     });
-  }
-
-  get isOffline$() {
-    return this.ordersService.isOffline$;
   }
 }

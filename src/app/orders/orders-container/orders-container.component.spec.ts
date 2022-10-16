@@ -6,9 +6,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
+import { ORDERS } from '../../data/orders';
+import { OrdersModule } from '../orders.module';
 import { OrdersService } from '../orders.service';
 import { OrdersContainerComponent } from './orders-container.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('OrdersContainerComponent', () => {
   let component: OrdersContainerComponent;
@@ -22,7 +25,10 @@ describe('OrdersContainerComponent', () => {
       'getOrders',
     ]);
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        OrdersModule],
       providers: [
         {
           provide: OrdersService,
@@ -39,15 +45,36 @@ describe('OrdersContainerComponent', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
-  // Story 1 AC 2 工序 2
+  // Story 1 AC 1&2 工序 2
   it('should show no orders message when there are no orders', () => {
-    ordersService.getOrders.and.returnValue(of([]));
+    ordersService.getOrders.and.returnValue(of(ORDERS));
+    fixture.detectChanges();
+    expect(component.orders).toEqual(ORDERS);
+  });
+
+  // Story 1 AC 3 工序 2
+  it('should show offline message when get orders fails', async () => {
+    ordersService.getOrders.and.returnValue(
+      throwError(() => new Error('Network error.'))
+    );
+    fixture.detectChanges();
+    const offlineHint = el.query(By.css('.offline-hint'));
+    expect(offlineHint).toBeTruthy();
+  });
+
+  // Story 1 AC 3 工序 2
+  it('should hide offline message when get orders succeeds after fail', async () => {
+    ordersService.getOrders.and.returnValue(
+      throwError(() => new Error('Network error.'))
+    );
     fixture.detectChanges();
 
-    const emptyContent = el.query(By.css('.empty'));
-    expect(emptyContent).toBeTruthy();
-    expect(emptyContent.nativeElement.textContent.trim()).toBe(
-      '目前没有订单。'
-    );
+    ordersService.getOrders.and.returnValue(of(ORDERS));
+    const button = el.query(By.css('.get-orders'));
+    button.nativeElement.click();
+    fixture.detectChanges();
+
+    const offlineHint = el.query(By.css('.offline-hint'));
+    expect(offlineHint).toBeFalsy();
   });
 });
