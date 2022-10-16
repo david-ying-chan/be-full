@@ -10,7 +10,9 @@ import { OrdersService } from './../orders.service';
   styleUrls: ['./order-detail-container.component.scss'],
 })
 export class OrderDetailContainerComponent implements OnInit {
-  public orderDetail$: Observable<Order>;
+  public orderId: string;
+  public orderDetail: Order;
+  public isOffline = false;
 
   constructor(
     private ordersService: OrdersService,
@@ -19,8 +21,34 @@ export class OrderDetailContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const orderId = params.get('id');
-      this.orderDetail$ = this.ordersService.getOrderDetailsById(orderId);
+      this.orderId = params.get('id');
+      this.getOrderDetailsById();
     });
+  }
+
+  getOrderDetailsById() {
+    this.ordersService.getOrderDetailsById(this.orderId).subscribe(orderDetail => {
+      this.orderDetail = orderDetail;
+      if (this.orderDetail.done) {
+        this.isOffline = false;
+      }
+    })
+  }
+
+  finishPreparation = () => {
+    this.ordersService.finishPreparation(this.orderId).subscribe({
+      next: () => {
+        this.isOffline = false;
+        this.getOrderDetailsById();
+      },
+      error: () => {
+        this.isOffline = true;
+        this.getOrderDetailsById();
+      }
+    });
+  }
+
+  getTicket = () => {
+    this.ordersService.getTicket(this.orderId).subscribe();
   }
 }

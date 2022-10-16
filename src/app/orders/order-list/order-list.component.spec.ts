@@ -21,7 +21,7 @@ describe('OrderListComponent', () => {
     el = fixture.debugElement;
   });
 
-  // Story 1 AC 1 工序 1
+  // Story 2 AC 1 工序 1
   it('should display orders', () => {
     component.orders = ORDERS;
     fixture.detectChanges();
@@ -31,7 +31,7 @@ describe('OrderListComponent', () => {
     expect(orders.length).toBe(2);
   });
 
-  // Story 1 AC 1 工序 1
+  // Story 2 AC 1 工序 1
   it('should display specific order card', () => {
     component.orders = ORDERS;
     fixture.detectChanges();
@@ -43,6 +43,7 @@ describe('OrderListComponent', () => {
     expect(id.nativeElement.textContent).toBe(ORDER.id);
 
     const dishes = order.queryAll(By.css('.dishes li'));
+    expect(dishes).toBeTruthy();
     expect(dishes.length).toBe(1);
     // 因为转化成 HTML 内容之后前后会多一个空格
     expect(dishes[0].nativeElement.textContent.trim()).toBe(ORDER.dishes[0]);
@@ -51,7 +52,7 @@ describe('OrderListComponent', () => {
     expect(price.nativeElement.textContent).toBe(ORDER.price.toString());
   });
 
-  // Story 1 AC 2 工序 1
+  // Story 2 AC 2 工序 1
   it('should show no orders message when there are no orders', () => {
     component.orders = [];
     fixture.detectChanges();

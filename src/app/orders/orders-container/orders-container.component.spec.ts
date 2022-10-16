@@ -42,14 +42,14 @@ describe('OrdersContainerComponent', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
-  // Story 1 AC 1&2 工序 2
+  // Story 2 AC 1&2 工序 2
   it('should set orders property when get orders', () => {
     ordersService.getOrders.and.returnValue(of(ORDERS));
     fixture.detectChanges();
     expect(component.orders).toEqual(ORDERS);
   });
 
-  // Story 1 AC 3 工序 2
+  // Story 2 AC 3 工序 2
   it('should show offline message when get orders fails', async () => {
     ordersService.getOrders.and.returnValue(
       throwError(() => new Error('Network error.'))
@@ -59,7 +59,7 @@ describe('OrdersContainerComponent', () => {
     expect(offlineHint).toBeTruthy();
   });
 
-  // Story 1 AC 3 工序 2
+  // Story 2 AC 3 工序 2
   it('should show previous orders when get orders fail', async () => {
     ordersService.getOrders.and.returnValue(of(ORDERS));
     fixture.detectChanges();
@@ -72,7 +72,7 @@ describe('OrdersContainerComponent', () => {
     expect(component.orders).toEqual(ORDERS);
   });
 
-  // Story 1 AC 3 工序 2
+  // Story 2 AC 3 工序 2
   it('should hide offline message when get orders succeeds after fail', async () => {
     ordersService.getOrders.and.returnValue(
       throwError(() => new Error('Network error.'))

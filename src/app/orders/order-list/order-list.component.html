@@ -12,7 +12,7 @@
       <div class="row price">价格：<span>{{order.price}}</span></div>
   </div>
 
-  <div *ngIf="orders.length === 0" class="empty">
+  <div *ngIf="orders?.length === 0" class="empty">
     目前没有订单。
   </div>
 </div>

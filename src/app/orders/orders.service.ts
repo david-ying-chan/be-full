@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, retry, delay } from 'rxjs';
 import { Order } from '../models/order';
 import { ORDERS } from './../data/orders';
 
@@ -27,5 +27,15 @@ export class OrdersService {
     );
 
     // return of(ORDERS.find((order) => order.id === id));
+  }
+
+  finishPreparation(id: string) {
+    return this.http.post(`/selling-order-contracts/${id}/preparation/confirmation`, {}).pipe(
+      retry(2)
+    );
+  }
+
+  getTicket(id: string) {
+    return this.http.post(`/selling-order-contracts/${id}/receipt`, {});
   }
 }

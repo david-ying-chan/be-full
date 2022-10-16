@@ -7,7 +7,14 @@ import { Order } from '../../models/order';
   styleUrls: ['./order-detail.component.scss']
 })
 export class OrderDetailComponent implements OnInit {
-  @Input() data: Order;
+  @Input()
+  data: Order;
+  @Input()
+  isOffline = false;
+  @Input()
+  finishPreparationHandler: () => void;
+  @Input()
+  getTicketHandler: () => void;
 
   constructor() { }
 

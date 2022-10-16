@@ -1,3 +1,13 @@
 <div>
-  <app-order-detail [data]="orderDetail$ | async"></app-order-detail>
+  <div class="offline-hint" *ngIf="isOffline">
+    确认备餐完成失败，无法请求获取取餐小票。请稍后手动刷新页面重试。
+  </div>
+
+  <app-order-detail
+    [data]="orderDetail"
+    [finishPreparationHandler]="finishPreparation"
+    [getTicketHandler]="getTicket"
+    [isOffline]="isOffline"
+  >
+  </app-order-detail>
 </div>

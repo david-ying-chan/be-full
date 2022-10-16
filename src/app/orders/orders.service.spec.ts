@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
+  TestRequest,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ORDERS } from '../data/orders';
@@ -19,7 +20,7 @@ describe('OrdersService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
-  // Story 1 AC 1 工序 3
+  // Story 2 AC 1 工序 3
   it('should get all orders', () => {
     service.getOrders().subscribe((orders) => {
       expect(orders).toBeTruthy();
@@ -34,7 +35,7 @@ describe('OrdersService', () => {
     });
   });
 
-  // Story 1 AC 2 工序 3
+  // Story 2 AC 2 工序 3
   it('should get no orders if there are no orders', () => {
     service.getOrders().subscribe((orders) => {
       expect(orders).toEqual([]);
@@ -46,7 +47,7 @@ describe('OrdersService', () => {
     });
   });
 
-  // Story 1 AC 3 工序 3
+  // Story 2 AC 3 工序 3
   it('should get error if getting orders fails', () => {
     service.getOrders().subscribe({
       next: () => {
@@ -80,6 +81,34 @@ describe('OrdersService', () => {
     req.flush({
       payload: expectedOrder,
     });
+  });
+
+  // Story 1 AC 1 工序 3
+  it('should finish preparation', () => {
+    const orderId = '2';
+    service.finishPreparation(orderId).subscribe(() => {});
+    const req = httpTestingController.expectOne(
+      `/selling-order-contracts/${orderId}/preparation/confirmation`
+    );
+    expect(req.request.method).toEqual('POST');
+    req.flush({});
+  });
+
+  // Story 1 AC 2 工序 3
+  it('should retry 2 more times if finish preparation fails', () => {
+    const orderId = '2';
+    service.finishPreparation(orderId).subscribe({
+      next: () => {},
+      error: () => {}
+    });
+    let req: TestRequest;
+    for (let i = 0; i < 3; i++) {
+      req = httpTestingController.expectOne(
+        `/selling-order-contracts/${orderId}/preparation/confirmation`
+      );
+      expect(req.request.method).toEqual('POST');
+      req.error(new ErrorEvent('Network error.'));
+    }
   });
 
   afterEach(() => {

@@ -10,7 +10,7 @@
   </div>
   <div class="row price">价格：<span>{{data.price}}</span></div>
   <div class="row actions">
-    <button>备餐完成</button>
-    <button>获取取餐小票</button>
+    <button class="finish-preparation" (click)="finishPreparationHandler()" [disabled]="data.done || isOffline">备餐完成</button>
+    <button class="get-ticket" (click)="getTicketHandler()" [disabled]="!data.done">获取取餐小票</button>
   </div>
 </div>
