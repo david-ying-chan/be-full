@@ -1,27 +1,25 @@
-# BeFull
+# 「要吃饱」商家管理员平台
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.5.
 
-## Development server
+因为此展示代码项目没有后端，所以默认提交的代码是无法获取数据的。但在测试中对 HTTP API 做了 mock，所以直接跑 ng test 看测试是没问题的。
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+如果想在浏览器中看展示效果，需要更改 src/app/orders/orders.service.ts 中从 API 获取数据的相关代码，改为获取项目中的 mock data。相关代码做以下修改。
 
-## Code scaffolding
+```
+getOrders(): Observable<Order[]> {
+    // return this.http
+    //   .get<{ payload: Order[] }>('/selling-order-contracts')
+    //   .pipe(map((res) => res.payload));
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    return of(ORDERS);
+  }
 
-## Build
+  getOrderDetailsById(id: string): Observable<Order> {
+    // return this.http.get<{ payload: Order }>(`/selling-order-contracts/${id}`).pipe(
+    //   map(res => res.payload)
+    // );
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+    return of(ORDERS.find((order) => order.id === id));
+  }
+```

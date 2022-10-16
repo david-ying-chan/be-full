@@ -43,7 +43,7 @@ describe('OrdersContainerComponent', () => {
   });
 
   // Story 1 AC 1&2 工序 2
-  it('should show no orders message when there are no orders', () => {
+  it('should set orders property when get orders', () => {
     ordersService.getOrders.and.returnValue(of(ORDERS));
     fixture.detectChanges();
     expect(component.orders).toEqual(ORDERS);
