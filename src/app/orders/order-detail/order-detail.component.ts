@@ -12,8 +12,6 @@ export class OrderDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('order detail:', this.data);
-
   }
 
 }

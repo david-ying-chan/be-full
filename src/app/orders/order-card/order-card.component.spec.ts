@@ -1,6 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ORDERS } from 'src/app/data/orders';
 
 import { OrderCardComponent } from './order-card.component';
@@ -12,9 +13,9 @@ describe('OrderCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OrderCardComponent]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [OrderCardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(OrderCardComponent);
     component = fixture.componentInstance;
@@ -37,5 +38,5 @@ describe('OrderCardComponent', () => {
 
     const price = el.query(By.css('.price span'));
     expect(price.nativeElement.textContent).toBe(ORDER.price.toString());
-  })
+  });
 });

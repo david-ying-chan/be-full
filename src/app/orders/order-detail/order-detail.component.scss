@@ -1,0 +1,21 @@
+.order-detail{
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 450px;;
+
+  .row {
+    margin-bottom: 10px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  ul {
+    padding-left: 30px;
+
+    li {
+      margin: 8px 0;
+    }
+  }
+}
