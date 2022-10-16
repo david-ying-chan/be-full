@@ -1,6 +1,6 @@
 <div>
   <div class="offline-hint" *ngIf="isOffline">
-    获取订单详情失败。
+    获取订单列表失败。目前显示的是 {{date}} 的订单信息。如需获取最新的订单详情，请点击按钮刷新重试。
   </div>
 
   <button class="get-orders" (click)="getOrders()">刷新订单列表</button>

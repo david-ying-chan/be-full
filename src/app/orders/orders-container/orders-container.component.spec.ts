@@ -6,12 +6,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 import { ORDERS } from '../../data/orders';
 import { OrdersModule } from '../orders.module';
 import { OrdersService } from '../orders.service';
 import { OrdersContainerComponent } from './orders-container.component';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('OrdersContainerComponent', () => {
   let component: OrdersContainerComponent;
@@ -25,10 +25,7 @@ describe('OrdersContainerComponent', () => {
       'getOrders',
     ]);
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
-        OrdersModule],
+      imports: [HttpClientTestingModule, RouterTestingModule, OrdersModule],
       providers: [
         {
           provide: OrdersService,
@@ -60,6 +57,19 @@ describe('OrdersContainerComponent', () => {
     fixture.detectChanges();
     const offlineHint = el.query(By.css('.offline-hint'));
     expect(offlineHint).toBeTruthy();
+  });
+
+  // Story 1 AC 3 工序 2
+  it('should show previous orders when get orders fail', async () => {
+    ordersService.getOrders.and.returnValue(of(ORDERS));
+    fixture.detectChanges();
+
+    ordersService.getOrders.and.returnValue(
+      throwError(() => new Error('Network error.'))
+    );
+    fixture.detectChanges();
+
+    expect(component.orders).toEqual(ORDERS);
   });
 
   // Story 1 AC 3 工序 2

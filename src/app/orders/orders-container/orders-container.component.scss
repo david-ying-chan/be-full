@@ -1,3 +1,11 @@
+.get-orders {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
 
 .offline-hint {
   text-align: center;
